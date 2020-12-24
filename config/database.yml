@@ -1,0 +1,30 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  pool: <%= ENV['DATABASE_POOL'] || 5 %>
+  username: <%= ENV['DATABASE_USERNAME'] || 'ateam' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || 'hika9' %>
+  host: <%= ENV['DATABASE_HOST'] || '127.0.0.1' %>
+  port: <%= ENV['DATABASE_PORT'] || 3306 %>
+
+development:
+  <<: *default
+  database: lambda_run_development
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: lambda_run_test
+
+production:
+  <<: *default
+  database: lambda_run_production

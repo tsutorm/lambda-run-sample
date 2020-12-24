@@ -1,0 +1,14 @@
+MY_AWS_ACCOUNT_ID: 999999999999
+MY_AWS_REGION: ap-northeast-1
+MY_AWS_SECURITY_GROUP: sg-xxxxxxx
+MY_AWS_SUBNET_ID_0: subnet-xxxxxxxx
+MY_AWS_SUBNET_ID_1: subnet-xxxxxxxx
+MY_AWS_SUBNET_ID_2: subnet-xxxxxxxx
+AWS_APP_CONTAINER_HASH: sha256:xxxxxxxxxxxxxxx
+AWS_MIGRATE_CONTAINER_HASH: sha256:xxxxxxxxxxxxxxx
+RAILS_ENV: production
+DATABASE_HOST: lambda-run.cluster-xxxxxxx.ap-northeast-1.rds.amazonaws.com
+DATABASE_USERNAME: admin
+DATABASE_PASSWORD: SECRET_PASSWORD
+DATABASE_PORT: 3306
+SECRET_KEY_BASE: hogehoge

@@ -1,0 +1,38 @@
+service: lambda-run
+
+custom:
+  defaultStage: dev
+  environment:
+    dev: ${file(./environments/dev.yml)}
+
+provider:
+  name: aws
+  region: ${self:custom.environment.${self:provider.stage}.MY_AWS_REGION}
+  apiGateway:
+    shouldStartNameWithService: "true"
+  vpc:
+    securityGroupIds:
+      - ${self:custom.environment.${self:provider.stage}.MY_AWS_SECURITY_GROUP}
+    subnetIds:
+      - ${self:custom.environment.${self:provider.stage}.MY_AWS_SUBNET_ID_0}
+      - ${self:custom.environment.${self:provider.stage}.MY_AWS_SUBNET_ID_1}
+      - ${self:custom.environment.${self:provider.stage}.MY_AWS_SUBNET_ID_2}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "ec2:CreateNetworkInterface"
+        - "ec2:DescribeNetworkInterfaces"
+        - "ec2:DeleteNetworkInterface"
+      Resource:
+        - "*"
+
+functions:
+  app:
+    image: ${self:custom.environment.${self:provider.stage}.MY_AWS_ACCOUNT_ID}.dkr.ecr.${self:provider.region}.amazonaws.com/${self:service}@${self:custom.environment.${self:provider.stage}.AWS_APP_CONTAINER_HASH}
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+    environment: ${self:custom.environment.${self:provider.stage}}
+  migrate:
+    image: ${self:custom.environment.${self:provider.stage}.MY_AWS_ACCOUNT_ID}.dkr.ecr.${self:provider.region}.amazonaws.com/${self:service}@${self:custom.environment.${self:provider.stage}.AWS_MIGRATE_CONTAINER_HASH}
+    environment: ${self:custom.environment.${self:provider.stage}}

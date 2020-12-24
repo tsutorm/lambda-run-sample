@@ -1,0 +1,10 @@
+{
+  "name": "lambda-run",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "tsutorm <oonishi.wasborn.1981@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "serverless": "^2.16.1"
+  }
+}
